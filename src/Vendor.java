@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Vendor is responsible for selling properties.
  */
@@ -14,8 +16,8 @@ public class Vendor extends Employee {
      * @param yearsOfExperience The amount of experience employee has.
      * @param totalGeneratedIncome The total generated income by the vendor for the company.
      */
-    public Vendor (String name, String surname, int yearsOfExperience, double totalGeneratedIncome) {
-        super(name, surname, yearsOfExperience);
+    public Vendor (String name, String surname, LocalDate employedAt, double totalGeneratedIncome) {
+        super(name, surname, employedAt);
         this.totalGeneratedIncome = totalGeneratedIncome;
     }
 

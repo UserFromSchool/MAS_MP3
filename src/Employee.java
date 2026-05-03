@@ -1,4 +1,4 @@
-
+import java.time.LocalDate;
 
 /**
  * An employee hired by the real estate company. Can have expertize in selling or analytics.
@@ -8,18 +8,18 @@ public abstract class Employee {
 
     final private String name;
     final private String surname;
-    final private int yearsOfExperience;
+    final private LocalDate employedAt;
 
     /**
      * Creates a new employee instance. Requires employee details for the system.
      * @param name The name of the employee.
      * @param surname The surname of the employee.
-     * @param yearsOfExperience The amount of experience employee has.
+     * @param employedAt The date, at which employee was employed.
      */
-    public Employee(String name, String surname, int yearsOfExperience) {
+    public Employee(String name, String surname, LocalDate employedAt) {
         this.name = name;
         this.surname = surname;
-        this.yearsOfExperience = yearsOfExperience;
+        this.employedAt = employedAt;
     }
 
     public String getName() {
@@ -30,8 +30,8 @@ public abstract class Employee {
         return surname;
     }
 
-    public int getYearsOfExperience() {
-        return yearsOfExperience;
+    public LocalDate getEmployedAt() {
+        return employedAt;
     }
 
     /**

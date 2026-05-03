@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Analytic is responsible for performing analysis of the properties
  * and constructing analytical internal portfolios. He is the key for deep
@@ -12,11 +14,11 @@ public class Analytic extends Employee implements IAnalytic {
      * The expertize can be updated later.
      * @param name The name of the employee.
      * @param surname The surname of the employee.
-     * @param yearsOfExperience The amount of experience employee has.
+     * @param employedAt The date, at which employee was employed.
      * @param expertizeDescription The description of the analytical expertize.
      */
-    public Analytic(String name, String surname, int yearsOfExperience, String expertizeDescription) {
-        super(name, surname, yearsOfExperience);
+    public Analytic(String name, String surname, LocalDate employedAt, String expertizeDescription) {
+        super(name, surname, employedAt);
         this.expertizeDescription = expertizeDescription;
     }
 

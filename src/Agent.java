@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,12 +21,12 @@ public class Agent extends Vendor implements IAnalytic {
      * The expertize can be updated later.
      * @param name The name of the employee.
      * @param surname The surname of the employee.
-     * @param yearsOfExperience The amount of experience employee has.
+     * @param employedAt The date, at which employee was employed.
      * @param totalGeneratedIncome The total generated income by the vendor for the company.
      * @param expertizeDescription The description of the analytical expertize.
      */
-    public Agent(String name, String surname, int yearsOfExperience, double totalGeneratedIncome, String expertizeDescription, List<String> pricingPrinciples) {
-        super(name, surname, yearsOfExperience, totalGeneratedIncome);
+    public Agent(String name, String surname, LocalDate employedAt, double totalGeneratedIncome, String expertizeDescription, List<String> pricingPrinciples) {
+        super(name, surname, employedAt, totalGeneratedIncome);
         this.expertizeDescription = expertizeDescription;
         this.pricingPrinciples = new ArrayList<>(pricingPrinciples);
     }

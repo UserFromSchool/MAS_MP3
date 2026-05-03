@@ -72,10 +72,10 @@ public class Main {
 
         System.out.println("======================= MULTI-INHERITANCE SHOWCASE =======================");
         System.out.println();
-        Employee vendor = new Vendor("Jacob", "Plaza", 4, 11_111);
-        Employee analytic = new Analytic("Jacob", "Braza", 2, "Is amazing at skyscrapers analysis.");
+        Employee vendor = new Vendor("Jacob", "Plaza", LocalDate.now(), 11_111);
+        Employee analytic = new Analytic("Jacob", "Braza", LocalDate.now(), "Is amazing at skyscrapers analysis.");
         Employee agent =  new Agent(
-                "Jacob", "Ghaza", 8,
+                "Jacob", "Ghaza", LocalDate.now(),
                 50_000, "Great experience in residential buildings analysis.",
                 List.of("Likes to use market valuations rather than physical.", "The price can be never smaller than construction.")
         );
