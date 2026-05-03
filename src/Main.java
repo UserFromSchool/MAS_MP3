@@ -58,12 +58,12 @@ public class Main {
         System.out.println("Commercial property infrastructure type " + commercialProperty.getInfrastructureType());
         try {
             System.out.println("Residential property infrastructure type " + residentialProperty.getInfrastructureType());
-        } catch (IllegalArgumentException ex) {
+        } catch (IllegalStateException ex) {
             System.out.println("Residential property has returned an error (EXPECTED BEHAVIOR) : " + ex.getMessage());
         }
         try {
             System.out.println("Commercial property infrastructure type " + commercialProperty.getMaxOccupants());
-        } catch (IllegalArgumentException ex) {
+        } catch (IllegalStateException ex) {
             System.out.println("Commercial property has returned an error (EXPECTED BEHAVIOR) : " + ex.getMessage());
         }
         System.out.println();

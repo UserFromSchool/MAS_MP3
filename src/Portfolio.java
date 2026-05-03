@@ -54,17 +54,17 @@ public class Portfolio {
     }
 
     public String getNarrative() {
-        if (type != PortfolioType.MarketingPortfolio) throw new IllegalArgumentException("An internal portfolio does not have a narrative.");
+        if (type != PortfolioType.MarketingPortfolio) throw new IllegalStateException("An internal portfolio does not have a narrative.");
         return narrative;
     }
 
     public String getTargetClientProfile() {
-        if (type != PortfolioType.MarketingPortfolio) throw new IllegalArgumentException("An internal portfolio does not have a target client profile.");
+        if (type != PortfolioType.MarketingPortfolio) throw new IllegalStateException("An internal portfolio does not have a target client profile.");
         return targetClientProfile;
     }
 
     public String getPurpose() {
-        if (type != PortfolioType.InternalPortfolio) throw new IllegalArgumentException("A marketing portfolio does not have a purpose specification.");
+        if (type != PortfolioType.InternalPortfolio) throw new IllegalStateException("A marketing portfolio does not have a purpose specification.");
         return purpose;
     }
 

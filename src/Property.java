@@ -100,22 +100,22 @@ public class Property {
     }
 
     public InfrastructureType getInfrastructureType() {
-        if (this.commercialProperty == null) throw new IllegalArgumentException("Infrastructure type is only set on commercial properties.");
+        if (this.commercialProperty == null) throw new IllegalStateException("Infrastructure type is only set on commercial properties.");
         return this.commercialProperty.infrastructureType;
     }
 
     public ZoningType getZoningType() {
-        if (this.commercialProperty == null) throw new IllegalArgumentException("Zoning type is only set on commercial properties.");
+        if (this.commercialProperty == null) throw new IllegalStateException("Zoning type is only set on commercial properties.");
         return this.commercialProperty.zoningType;
     }
 
     public int getMaxOccupants() {
-        if (this.residentialProperty == null) throw new IllegalArgumentException("Max occupants are only set on residential properties.");
+        if (this.residentialProperty == null) throw new IllegalStateException("Max occupants are only set on residential properties.");
         return this.residentialProperty.maxOccupants;
     }
 
     public List<String> getUtilities() {
-        if (this.residentialProperty == null) throw new IllegalArgumentException("Utilities are only set on residential properties.");
+        if (this.residentialProperty == null) throw new IllegalStateException("Utilities are only set on residential properties.");
         return this.residentialProperty.utilities.stream().toList();
     }
 

@@ -1,3 +1,4 @@
+import enums.ContractType;
 import java.time.LocalDate;
 
 /**
@@ -8,8 +9,16 @@ public abstract class Contract {
 
     private final LocalDate startDate;
     private final LocalDate endDate;
-    private final BusinessToConsumerContract b2cContract;
-    private final BusinessToBusinessContract b2bContract;
+    private final ContractType type;
+
+    private final String businessName;
+    private final String businessPublicId;
+    private final String businessTaxId;
+
+    private final String consumerName;
+    private final String consumerSurname;
+    private final String consumerAddress;
+    private final String consumerPersonalId;
 
     /**
      * Creates a new B2B contract for the specified period.
@@ -20,12 +29,14 @@ public abstract class Contract {
     public Contract(LocalDate startDate, LocalDate endDate, BusinessToBusinessContractParams businessToBusinessParams) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.b2bContract = new BusinessToBusinessContract(
-                businessToBusinessParams.businessName,
-                businessToBusinessParams.businessPublicId,
-                businessToBusinessParams.businessTaxId
-        );
-        this.b2cContract = null;
+        this.type = ContractType.B2B;
+        this.businessName = businessToBusinessParams.businessName;
+        this.businessPublicId = businessToBusinessParams.businessPublicId;
+        this.businessTaxId = businessToBusinessParams.businessTaxId;
+        this.consumerName = null;
+        this.consumerSurname = null;
+        this.consumerAddress = null;
+        this.consumerPersonalId = null;
     }
 
     /**
@@ -37,13 +48,14 @@ public abstract class Contract {
     public Contract(LocalDate startDate, LocalDate endDate, BusinessToConsumerContractParams businessToConsumerParams) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.b2cContract = new BusinessToConsumerContract(
-                businessToConsumerParams.consumerName,
-                businessToConsumerParams.consumerSurname,
-                businessToConsumerParams.consumerAddress,
-                businessToConsumerParams.consumerPersonalId
-        );
-        this.b2bContract = null;
+        this.type = ContractType.B2C;
+        this.consumerName = businessToConsumerParams.consumerName;
+        this.consumerSurname = businessToConsumerParams.consumerSurname;
+        this.consumerAddress = businessToConsumerParams.consumerAddress;
+        this.consumerPersonalId = businessToConsumerParams.consumerPersonalId;
+        this.businessName = null;
+        this.businessPublicId = null;
+        this.businessTaxId = null;
     }
 
     public LocalDate getStartDate() {
@@ -61,39 +73,39 @@ public abstract class Contract {
     public abstract double getTotalValue();
 
     public String getBusinessName() {
-        if (b2bContract == null) throw new IllegalArgumentException("The B2C contract does not store a business name.");
-        return b2bContract.businessName;
+        if (type != ContractType.B2B) throw new IllegalStateException("The B2C contract does not store a business name.");
+        return businessName;
     }
 
     public String getBusinessPublicId() {
-        if (b2bContract == null) throw new IllegalArgumentException("The B2C contract does not store a business public id.");
-        return b2bContract.businessPublicId;
+        if (type != ContractType.B2B) throw new IllegalStateException("The B2C contract does not store a business public id.");
+        return businessPublicId;
     }
 
     public String getBusinessTaxId() {
-        if (b2bContract == null) throw new IllegalArgumentException("The B2C contract does not store a business tax id.");
-        return b2bContract.businessTaxId;
+        if (type != ContractType.B2B) throw new IllegalStateException("The B2C contract does not store a business tax id.");
+        return businessTaxId;
     }
 
     public String getConsumerName() {
-        if (b2cContract == null) throw new IllegalArgumentException("The B2B contract does not store a consumer name.");
-        return b2cContract.consumerName;
+        if (type != ContractType.B2C) throw new IllegalStateException("The B2B contract does not store a consumer name.");
+        return consumerName;
     }
 
     public String getConsumerSurame() {
-        if (b2cContract == null) throw new IllegalArgumentException("The B2B contract does not store a consumer surname.");
-        return b2cContract.consumerSurname;
+        if (type != ContractType.B2C) throw new IllegalStateException("The B2B contract does not store a consumer surname.");
+        return consumerSurname;
     }
 
     public String getConsumerAddress() {
-        if (b2cContract == null) throw new IllegalArgumentException("The B2B contract does not store a consumer address.");
-        return b2cContract.consumerAddress;
+        if (type != ContractType.B2C) throw new IllegalStateException("The B2B contract does not store a consumer address.");
+        return consumerAddress;
 
     }
 
     public String getConsumerPersonalId() {
-        if (b2cContract == null) throw new IllegalArgumentException("The B2B contract does not store a consumer personal id.");
-        return b2cContract.consumerPersonalId;
+        if (type != ContractType.B2C) throw new IllegalStateException("The B2B contract does not store a consumer personal id.");
+        return consumerPersonalId;
     }
 
     /**
@@ -113,58 +125,21 @@ public abstract class Contract {
      */
     public record BusinessToConsumerContractParams(String consumerName, String consumerSurname, String consumerAddress, String consumerPersonalId) {}
 
-    /**
-     * Defines a contract between two businesses (B2B) and its
-     * characteristics.
-     */
-    public class BusinessToBusinessContract {
-        final private String businessName;
-        final private String businessPublicId;
-        final private String businessTaxId;
-
-        private BusinessToBusinessContract(String businessName, String businessPublicId, String businessTaxId) {
-            this.businessName = businessName;
-            this.businessPublicId = businessPublicId;
-            this.businessTaxId = businessTaxId;
-        }
-    }
-
-    /**
-     * Defines a contract between a business and a consumer (B2C) and its
-     * characteristics.
-     */
-    public class BusinessToConsumerContract {
-        final private String consumerName;
-        final private String consumerSurname;
-        final private String consumerAddress;
-        final private String consumerPersonalId;
-
-        private BusinessToConsumerContract(String consumerName, String consumerSurname, String consumerAddress, String consumerPersonalId) {
-            this.consumerName = consumerName;
-            this.consumerSurname = consumerSurname;
-            this.consumerAddress = consumerAddress;
-            this.consumerPersonalId = consumerPersonalId;
-        }
-
-    }
-
     @Override
     public String toString() {
-        if (b2bContract != null) {
+        if (type == ContractType.B2B) {
             return "Contract B2B" + '\n' +
-                    "Business entity name: " + b2bContract.businessName + '\n' +
-                    "Business entity public id: " + b2bContract.businessPublicId + '\n' +
-                    "Business entity tax id: " + b2bContract.businessTaxId + '\n' +
-                    "Expected income from the contract by the term's end: " + getTotalValue();
-        } else if (b2cContract != null) {
-            return "Contract B2C" + '\n' +
-                    "Consumer entity name: " + b2cContract.consumerName + '\n' +
-                    "Consumer entity surname: " + b2cContract.consumerSurname + '\n' +
-                    "Consumer entity address: " + b2cContract.consumerAddress + '\n' +
-                    "Consumer entity personal id: " + b2cContract.consumerPersonalId + '\n' +
+                    "Business entity name: " + businessName + '\n' +
+                    "Business entity public id: " + businessPublicId + '\n' +
+                    "Business entity tax id: " + businessTaxId + '\n' +
                     "Expected income from the contract by the term's end: " + getTotalValue();
         } else {
-            throw new IllegalStateException("The contract instance has reached unreachable broken state.");
+            return "Contract B2C" + '\n' +
+                    "Consumer entity name: " + consumerName + '\n' +
+                    "Consumer entity surname: " + consumerSurname + '\n' +
+                    "Consumer entity address: " + consumerAddress + '\n' +
+                    "Consumer entity personal id: " + consumerPersonalId + '\n' +
+                    "Expected income from the contract by the term's end: " + getTotalValue();
         }
     }
 

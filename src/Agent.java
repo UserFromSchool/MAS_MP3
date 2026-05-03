@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -26,7 +27,7 @@ public class Agent extends Vendor implements IAnalytic {
     public Agent(String name, String surname, int yearsOfExperience, double totalGeneratedIncome, String expertizeDescription, List<String> pricingPrinciples) {
         super(name, surname, yearsOfExperience, totalGeneratedIncome);
         this.expertizeDescription = expertizeDescription;
-        this.pricingPrinciples = pricingPrinciples.stream().toList();
+        this.pricingPrinciples = new ArrayList<>(pricingPrinciples);
     }
 
     public void makePropertyValuation(Property property) {
