@@ -31,4 +31,9 @@ public class Vendor extends Employee {
         System.out.println(getSignature() + " prepares a deal for a property " + property.getName());
     }
 
+    @Override
+    public void prepareProperty(Property property) {
+        prepareDeal(property);
+    }
+
 }

@@ -54,4 +54,19 @@ public class Agent extends Vendor implements IAnalytic {
         this.expertizeDescription = expertizeDescription;
     }
 
+    public void prepareAnalysis(Property property) {
+        System.out.println(getSignature() + " is performing analysis on the property called " + property.getName());
+    }
+
+    public void prepareValuation(Property property) {
+        System.out.println(getSignature() + " is preparing the valuation for the property called " + property.getName());
+    }
+
+    @Override
+    public void prepareProperty(Property property) {
+        prepareAnalysis(property);
+        prepareValuation(property);
+        super.prepareDeal(property);
+    }
+
 }

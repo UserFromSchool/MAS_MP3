@@ -36,4 +36,13 @@ public class FixedContract extends Contract {
         return paidAmount;
     }
 
+    @Override
+    public double getTotalValue() {
+        return getPaidAmount();
+    }
+
+    @Override
+    public String toString() {
+        return "Fixed Term " + super.toString();
+    }
 }

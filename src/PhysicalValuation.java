@@ -25,6 +25,7 @@ public class PhysicalValuation extends Valuation {
         }
     }
 
+    @Override
     public double calculate(LocalDate forDate) {
         System.out.println("Performing physical valuation...");
         double years = (double)ChronoUnit.YEARS.between(getValuationDate(), forDate);

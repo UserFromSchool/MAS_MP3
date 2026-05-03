@@ -8,7 +8,7 @@ import java.util.EnumSet;
  */
 public class Portfolio {
 
-    final private EnumSet<PortfolioType> type;
+    private PortfolioType type;
     final private String name;
     private String description;
     private String purpose;
@@ -17,7 +17,8 @@ public class Portfolio {
 
     private Portfolio(String name, String description, PortfolioType type) {
         this.name = name;
-        this.type = EnumSet.of(type);
+        this.description = description;
+        this.type = type;
     }
 
     /**
@@ -53,17 +54,17 @@ public class Portfolio {
     }
 
     public String getNarrative() {
-        if (!type.contains(PortfolioType.MarketingPortfolio)) throw new IllegalArgumentException("An internal portfolio does not have a narrative.");
+        if (type != PortfolioType.MarketingPortfolio) throw new IllegalArgumentException("An internal portfolio does not have a narrative.");
         return narrative;
     }
 
     public String getTargetClientProfile() {
-        if (!type.contains(PortfolioType.MarketingPortfolio)) throw new IllegalArgumentException("An internal portfolio does not have a target client profile.");
+        if (type != PortfolioType.MarketingPortfolio) throw new IllegalArgumentException("An internal portfolio does not have a target client profile.");
         return targetClientProfile;
     }
 
     public String getPurpose() {
-        if (!type.contains(PortfolioType.InternalPortfolio)) throw new IllegalArgumentException("A marketing portfolio does not have a purpose specification.");
+        if (type != PortfolioType.InternalPortfolio) throw new IllegalArgumentException("A marketing portfolio does not have a purpose specification.");
         return purpose;
     }
 
@@ -71,20 +72,34 @@ public class Portfolio {
         this.description = description;
     }
 
-    public void castToInternalPortfolio(String purpose) {
+    public void toInternalPortfolio(String purpose) {
         this.narrative = null;
         this.targetClientProfile = null;
         this.purpose = purpose;
-        this.type.clear();
-        this.type.add(PortfolioType.InternalPortfolio);
+        this.type = PortfolioType.InternalPortfolio;
     }
 
-    public void castToMarketingPortfolio(String narrative, String targetClientProfile) {
+    public void toMarketingPortfolio(String narrative, String targetClientProfile) {
         this.purpose = null;
         this.narrative = narrative;
         this.targetClientProfile = targetClientProfile;
-        this.type.clear();
-        this.type.add(PortfolioType.MarketingPortfolio);
+        this.type = PortfolioType.MarketingPortfolio;
+    }
+
+    @Override
+    public String toString() {
+        if (type == PortfolioType.MarketingPortfolio) {
+            return "Marketing Portfolio" + '\n' +
+            "Name: " + name + '\n' +
+            "Description: " + description + '\n' +
+            "Narrative: " + narrative + '\n' +
+            "Target client profile: " + targetClientProfile;
+        } else {
+            return "Internal Portfolio" + '\n' +
+            "Name: " + name + '\n' +
+            "Description: " + description + '\n' +
+            "Purpose: " + purpose;
+        }
     }
 
 }

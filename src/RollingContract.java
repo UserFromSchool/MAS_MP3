@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a lease contract with a rolling payment. Such contract assumes a monthly rent
@@ -50,6 +51,17 @@ public class RollingContract extends Contract {
 
     public double getMonthlyRent() {
         return monthlyRent;
+    }
+
+    @Override
+    public double getTotalValue() {
+        long months = ChronoUnit.MONTHS.between(this.getStartDate(), this.getEndDate());
+        return monthlyRent * (double)months;
+    }
+
+    @Override
+    public String toString() {
+        return "Rolling Term " + super.toString();
     }
 
 }

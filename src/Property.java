@@ -55,6 +55,38 @@ public class Property {
         }
     }
 
+    /**
+     * Creates a new property of the given type.
+     * @param name What the property is called.
+     * @param area The area of the property in square meters .
+     * @param address The address of the property.
+     * @param residentialParams In case of residential purpose, the parameters defining the residential property.
+     */
+    public Property(
+            String name,
+            double area,
+            String address,
+            ResidentialPropertyParams residentialParams
+    ) {
+        this(name, area, address, null, residentialParams);
+    }
+
+    /**
+     * Creates a new property of the given type.
+     * @param name What the property is called.
+     * @param area The area of the property in square meters .
+     * @param address The address of the property.
+     * @param commercialParams In case of commercial purpose, the parameters defining the commercial property.
+     */
+    public Property(
+            String name,
+            double area,
+            String address,
+            CommercialPropertyParams commercialParams
+    ) {
+        this(name, area, address, commercialParams, null);
+    }
+
     public String getName() {
         return this.name;
     }

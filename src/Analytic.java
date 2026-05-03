@@ -28,8 +28,13 @@ public class Analytic extends Employee implements IAnalytic {
         this.expertizeDescription = expertizeDescription;
     }
 
-    public void performAnalysis(Property property) {
+    public void prepareAnalysis(Property property) {
         System.out.println(getSignature() + " is performing analysis on the property called " + property.getName());
+    }
+
+    @Override
+    public void prepareProperty(Property property) {
+        prepareAnalysis(property);
     }
 
 }

@@ -34,12 +34,14 @@ public abstract class Employee {
         return yearsOfExperience;
     }
 
-    public String getSignature() {
+    /**
+     * Employees can prepare property for the final sale. Each employee
+     * will do different actions to prepare the property.
+     * @param property Property, which should be prepared.
+     */
+    public abstract void prepareProperty(Property property);
+
+    protected String getSignature() {
         return getName() + " " + getSurname();
     }
-
-    public void createPortfolio() {
-        System.out.println(getSignature() + " is creating a portfolio.");
-    }
-
 }

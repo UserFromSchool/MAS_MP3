@@ -20,6 +20,7 @@ public class MarketValuation extends Valuation {
         }
     }
 
+    @Override
     public double calculate(LocalDate forDate) {
         System.out.println("Performing market valuation...");
         double years = (double)ChronoUnit.YEARS.between(getValuationDate(), forDate);

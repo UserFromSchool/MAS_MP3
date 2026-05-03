@@ -54,6 +54,12 @@ public abstract class Contract {
         return endDate;
     }
 
+    /**
+     * Calculates the total value, which this contract is for. This can depend on the contract's payment
+     * agreements and schedules.
+     */
+    public abstract double getTotalValue();
+
     public String getBusinessName() {
         if (b2bContract == null) throw new IllegalArgumentException("The B2C contract does not store a business name.");
         return b2bContract.businessName;
@@ -140,6 +146,26 @@ public abstract class Contract {
             this.consumerPersonalId = consumerPersonalId;
         }
 
+    }
+
+    @Override
+    public String toString() {
+        if (b2bContract != null) {
+            return "Contract B2B" + '\n' +
+                    "Business entity name: " + b2bContract.businessName + '\n' +
+                    "Business entity public id: " + b2bContract.businessPublicId + '\n' +
+                    "Business entity tax id: " + b2bContract.businessTaxId + '\n' +
+                    "Expected income from the contract by the term's end: " + getTotalValue();
+        } else if (b2cContract != null) {
+            return "Contract B2C" + '\n' +
+                    "Consumer entity name: " + b2cContract.consumerName + '\n' +
+                    "Consumer entity surname: " + b2cContract.consumerSurname + '\n' +
+                    "Consumer entity address: " + b2cContract.consumerAddress + '\n' +
+                    "Consumer entity personal id: " + b2cContract.consumerPersonalId + '\n' +
+                    "Expected income from the contract by the term's end: " + getTotalValue();
+        } else {
+            throw new IllegalStateException("The contract instance has reached unreachable broken state.");
+        }
     }
 
 }

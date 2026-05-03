@@ -14,4 +14,10 @@ public interface IAnalytic {
      */
     void setExpertizeDescription(String expertizeDescription);
 
+    /**
+     * Prepares analysis for the given property before the final sale.
+     * @param property The property, for which to prepare the analysis.
+     */
+    void prepareAnalysis(Property property);
+
 }

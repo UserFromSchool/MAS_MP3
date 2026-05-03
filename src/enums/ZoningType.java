@@ -6,6 +6,7 @@ package enums;
  * type. This prevents e.g. industries being built in the middle of the city.
  */
 public enum ZoningType {
+    SoftIndustrial,
     Industrial,
     Agricultural,
     Services,
